@@ -26,17 +26,13 @@ const ResetPasswordForm = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const token = searchParams.get("token") as string;
 
   useEffect(() => {
     if (!token) {
       router.push("/auth/forgot-password");
     }
   }, [token, router]);
-
-  if (!token) {
-    return null;
-  }
 
   // `useForm` hook is correctly placed inside the function component
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
@@ -50,7 +46,6 @@ const ResetPasswordForm = () => {
   const onSubmit = (credentials: z.infer<typeof resetPasswordSchema>) => {
     startTransition(async () => {
       await resetPassword({ credentials, token });
-      // Handle post-reset action here
     });
   };
 
