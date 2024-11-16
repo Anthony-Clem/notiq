@@ -20,20 +20,11 @@ import LoadingButton from "../common/loading-button";
 import { resetPassword } from "@/actions/reset-password";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const form = useForm<z.infer<typeof resetPasswordSchema>>({
-  resolver: zodResolver(resetPasswordSchema),
-  defaultValues: {
-    password: "",
-    confirmPassword: "",
-  },
-});
-
 const ResetPasswordForm = () => {
   const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const router = useRouter();
-
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -47,10 +38,19 @@ const ResetPasswordForm = () => {
     return null;
   }
 
+  // `useForm` hook is correctly placed inside the function component
+  const form = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
   const onSubmit = (credentials: z.infer<typeof resetPasswordSchema>) => {
     startTransition(async () => {
       await resetPassword({ credentials, token });
-      // toast.error(error);
+      // Handle post-reset action here
     });
   };
 
@@ -83,7 +83,11 @@ const ResetPasswordForm = () => {
                   {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                 </button>
               </div>
-              <FormMessage className="text-xs" />
+              {form.formState.errors.password && (
+                <FormMessage className="text-xs text-red-500">
+                  {form.formState.errors.password.message}
+                </FormMessage>
+              )}
             </FormItem>
           )}
         />
@@ -98,7 +102,7 @@ const ResetPasswordForm = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     className={cn(
-                      form.formState.errors.password &&
+                      form.formState.errors.confirmPassword &&
                         "border-red-500 focus-visible:ring-red-500 focus-visible:border-input transition-all"
                     )}
                     disabled={isPending}
@@ -113,7 +117,11 @@ const ResetPasswordForm = () => {
                   {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                 </button>
               </div>
-              <FormMessage className="text-xs" />
+              {form.formState.errors.confirmPassword && (
+                <FormMessage className="text-xs text-red-500">
+                  {form.formState.errors.confirmPassword.message}
+                </FormMessage>
+              )}
             </FormItem>
           )}
         />
@@ -124,7 +132,7 @@ const ResetPasswordForm = () => {
           disabled={isPending}
           type="submit"
         >
-          Login
+          Reset Password
         </LoadingButton>
       </form>
     </Form>

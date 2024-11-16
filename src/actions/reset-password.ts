@@ -23,8 +23,7 @@ export const resetPassword = async ({
       redirect("/auth/forgot-password");
     }
 
-    const { password, confirmPassword } =
-      resetPasswordSchema.parse(credentials);
+    const { password } = resetPasswordSchema.parse(credentials);
 
     const existingToken = await getPasswordResetTokenByToken(token);
 
