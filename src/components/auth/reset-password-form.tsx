@@ -4,7 +4,6 @@ import { resetPasswordSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -14,7 +13,6 @@ import {
 } from "../ui/form";
 import { z } from "zod";
 import { Label } from "../ui/label";
-import Link from "next/link";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";

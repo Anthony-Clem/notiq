@@ -1,6 +1,5 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
 import { loginSchema } from "@/lib/schemas";
 import { z } from "zod";
 import bcrypt from "bcryptjs";

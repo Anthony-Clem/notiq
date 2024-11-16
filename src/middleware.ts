@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { decrypt, verifySession } from "./lib/session";
+import { decrypt } from "./lib/session";
 import { cookies } from "next/headers";
 
 export default async function middleware(req: NextRequest) {

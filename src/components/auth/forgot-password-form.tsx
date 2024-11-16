@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { forgotPasswordSchema } from "@/lib/schemas";

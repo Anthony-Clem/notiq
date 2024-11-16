@@ -3,7 +3,6 @@
 import { generateResetPasswordToken } from "@/data/reset-token";
 import { getUserByEmail } from "@/data/user";
 import { sendPasswordResetEmail } from "@/lib/mail";
-import { prisma } from "@/lib/prisma";
 import { forgotPasswordSchema } from "@/lib/schemas";
 import { z } from "zod";
 
