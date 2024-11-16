@@ -9,7 +9,7 @@ const cookie = {
   options: {
     httpOnly: true,
     secure: true,
-    sameSite: "lax" as "lax",
+    sameSite: "lax" as const,
     path: "/",
   },
   duration: 30 * 24 * 60 * 60 * 1000,

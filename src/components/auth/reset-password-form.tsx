@@ -20,6 +20,14 @@ import LoadingButton from "../common/loading-button";
 import { resetPassword } from "@/actions/reset-password";
 import { useRouter, useSearchParams } from "next/navigation";
 
+const form = useForm<z.infer<typeof resetPasswordSchema>>({
+  resolver: zodResolver(resetPasswordSchema),
+  defaultValues: {
+    password: "",
+    confirmPassword: "",
+  },
+});
+
 const ResetPasswordForm = () => {
   const [isPending, startTransition] = useTransition();
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -38,14 +46,6 @@ const ResetPasswordForm = () => {
   if (!token) {
     return null;
   }
-
-  const form = useForm<z.infer<typeof resetPasswordSchema>>({
-    resolver: zodResolver(resetPasswordSchema),
-    defaultValues: {
-      password: "",
-      confirmPassword: "",
-    },
-  });
 
   const onSubmit = (credentials: z.infer<typeof resetPasswordSchema>) => {
     startTransition(async () => {
